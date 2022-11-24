@@ -14,3 +14,12 @@ public class Main {
 		ctx.close();
 	}
 }
+
+/*
+실행 결과
+(g1 == g2) = true
+
+g1과 g2가 같은 객체라는 것을 의미
+즉 getBean()메서드는 같은 객체를 리턴하는 것.
+
+*/
