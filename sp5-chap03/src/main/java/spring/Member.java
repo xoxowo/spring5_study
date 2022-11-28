@@ -42,10 +42,10 @@ public class Member {
 		return registerDateTime;
 	}
 
-	// 46~50행은 암호 변경 기능 구현 
+	// 46~50행은 암호 변경 기능 구현 파라미터값으로 전 비밀번호와 새로운 비밀번호를 입력받는다.
 	public void changePassword(String oldPassword, String newPassword) {
-		if (!password.equals(oldPassword))
-			throw new WrongIdPasswordException();
+		if (!password.equals(oldPassword)) // 
+			throw new WrongIdPasswordException(); // throw 오류 처리 
 		this.password = newPassword;
 	}
 

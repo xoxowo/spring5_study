@@ -1,5 +1,5 @@
 package assembler;
-
+// import 할 때 패키지명.클래스명;
 import spring.ChangePasswordService;
 import spring.MemberDao;
 import spring.MemberRegisterService;
