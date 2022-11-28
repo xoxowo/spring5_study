@@ -15,23 +15,23 @@ import spring.WrongIdPasswordException;
 public class MainForAssembler {
 
 	public static void main(String[] args) throws IOException {
-		BufferedReader reader = 
-				new BufferedReader(new InputStreamReader(System.in));
-		while (true) {
+		// BufferedReader (== Scanner) System.in이니까 프로그램에서 사용자로부터 입력받기 위해 초기화
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		while (true) { // while 문이라 exit입력하기 전까지 계속 실행됨
 			System.out.println("명령어를 입력하세요:");
-			String command = reader.readLine();
-			if (command.equalsIgnoreCase("exit")) {
+			String command = reader.readLine(); //위 19행에서 초기화했으니까 여기서 입력받음
+			if (command.equalsIgnoreCase("exit")) {	//사용자가 exit입력하면 종료됨
 				System.out.println("종료합니다.");
 				break;
 			}
-			if (command.startsWith("new ")) {
-				processNewCommand(command.split(" "));
-				continue;
-			} else if (command.startsWith("change ")) {
+			if (command.startsWith("new ")) { //입력한 문자열이 NEW로 시작되면 processNewCommand() 실행 "new"뒤에 공백문자가 있음
+				processNewCommand(command.split(" ")); // 이 command.split(" ") 코드는 command값이 "new a@a.com 이름 암호 암호"라면
+				continue;									 // command.split(" ") -> {"new", "a@a.com", "이름", "암호", "암호"} 이런 결과를 만들어 processNewCommand 전달한다.
+			} else if (command.startsWith("change ")) { //입력한 문자열이 change로 시작되면 processChangeCommand() 실행 "change로"뒤에 공백문자가 있음
 				processChangeCommand(command.split(" "));
 				continue;
 			}
-			printHelp();
+			printHelp(); //명령어를 잘못 입력한 경우 도움말 출력해주는 메서드 실행됨 
 		}
 	}
 
