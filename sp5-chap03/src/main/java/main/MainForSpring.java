@@ -18,8 +18,8 @@ import spring.WrongIdPasswordException;
 public class MainForSpring {
 
 	private static ApplicationContext ctx = null;
-	
-	public static void main(String[] args) throws IOException {
+	// AnnotationConfigApplicationContext 사용해서 스프링 컨테이너 생성, 객체 생성하고 의존 객체 주입
+	public static void main(String[] args) throws IOException { //설정파일 AppCtx클래스로 부터 생성할 객체와 의존 주입 대상을 정함
 		ctx = new AnnotationConfigApplicationContext(AppCtx.class);
 		
 		BufferedReader reader = 
@@ -47,7 +47,7 @@ public class MainForSpring {
 			printHelp();
 			return;
 		}
-		MemberRegisterService regSvc = 
+		MemberRegisterService regSvc = // 스프링 컨테이너로부터 이름이 "memberRegSvc"인 빈 객체를 구한다.
 				ctx.getBean("memberRegSvc", MemberRegisterService.class);
 		RegisterRequest req = new RegisterRequest();
 		req.setEmail(arg[1]);
@@ -72,7 +72,7 @@ public class MainForSpring {
 			printHelp();
 			return;
 		}
-		ChangePasswordService changePwdSvc = 
+		ChangePasswordService changePwdSvc = // 스프링 컨테이너로부터 이름이 "changePwdSvc"인 빈 객체를 구한다. 뒤에 클래스는 AppCtx 클래스에서 @Bean에 이미 설정되어있듬.
 				ctx.getBean("changePwdSvc", ChangePasswordService.class);
 		try {
 			changePwdSvc.changePassword(arg[1], arg[2], arg[3]);
