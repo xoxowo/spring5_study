@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import assembler.Assembler;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import config.AppCtx;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
 import spring.MemberNotFoundException;
@@ -12,37 +15,40 @@ import spring.MemberRegisterService;
 import spring.RegisterRequest;
 import spring.WrongIdPasswordException;
 
-public class MainForAssembler {
+public class MainForSpring {
 
+	private static ApplicationContext ctx = null;
+	
 	public static void main(String[] args) throws IOException {
-		// BufferedReader (== Scanner) System.in이니까 프로그램에서 사용자로부터 입력받기 위해 초기화
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		while (true) { // while 문이라 exit입력하기 전까지 계속 실행됨
+		ctx = new AnnotationConfigApplicationContext(AppCtx.class);
+		
+		BufferedReader reader = 
+				new BufferedReader(new InputStreamReader(System.in));
+		while (true) {
 			System.out.println("명령어를 입력하세요:");
-			String command = reader.readLine(); //위 19행에서 초기화했으니까 여기서 입력받음
-			if (command.equalsIgnoreCase("exit")) {	//사용자가 exit입력하면 종료됨
+			String command = reader.readLine();
+			if (command.equalsIgnoreCase("exit")) {
 				System.out.println("종료합니다.");
 				break;
 			}
-			if (command.startsWith("new ")) { //입력한 문자열이 NEW로 시작되면 processNewCommand() 실행 "new"뒤에 공백문자가 있음
-				processNewCommand(command.split(" ")); // 이 command.split(" ") 코드는 command값이 "new a@a.com 이름 암호 암호"라면
-				continue;									 // command.split(" ") -> {"new", "a@a.com", "이름", "암호", "암호"} 이런 결과를 만들어 processNewCommand 전달한다.
-			} else if (command.startsWith("change ")) { //입력한 문자열이 change로 시작되면 processChangeCommand() 실행 "change로"뒤에 공백문자가 있음
+			if (command.startsWith("new ")) {
+				processNewCommand(command.split(" "));
+				continue;
+			} else if (command.startsWith("change ")) {
 				processChangeCommand(command.split(" "));
 				continue;
 			}
-			printHelp(); //명령어를 잘못 입력한 경우 도움말 출력해주는 메서드 실행됨 
+			printHelp();
 		}
 	}
-	//assembler 객체 생성
-	private static Assembler assembler = new Assembler();
 
 	private static void processNewCommand(String[] arg) {
 		if (arg.length != 5) {
 			printHelp();
 			return;
-		}	//Assembler.java에서 이미 의존을 주입했고 38행에서 Assembler를 생성했기 떄문에 사용할 수 있다.
-		MemberRegisterService regSvc = assembler.getMemberRegisterService();
+		}
+		MemberRegisterService regSvc = 
+				ctx.getBean("memberRegSvc", MemberRegisterService.class);
 		RegisterRequest req = new RegisterRequest();
 		req.setEmail(arg[1]);
 		req.setName(arg[2]);
@@ -67,7 +73,7 @@ public class MainForAssembler {
 			return;
 		}
 		ChangePasswordService changePwdSvc = 
-				assembler.getChangePasswordService();
+				ctx.getBean("changePwdSvc", ChangePasswordService.class);
 		try {
 			changePwdSvc.changePassword(arg[1], arg[2], arg[3]);
 			System.out.println("암호를 변경했습니다.\n");
