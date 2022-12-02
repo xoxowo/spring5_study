@@ -14,6 +14,7 @@ import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
 import spring.RegisterRequest;
 import spring.WrongIdPasswordException;
+import spring.MemberListPrinter;
 
 public class MainForSpring {
 
@@ -37,9 +38,19 @@ public class MainForSpring {
 			} else if (command.startsWith("change ")) {
 				processChangeCommand(command.split(" "));
 				continue;
+			} // 추가 회원 list를 볼수 있는 명령어 추가 
+			else if (command.equals("list")) {
+				processListCommand();
+				continue;
 			}
 			printHelp();
 		}
+	}
+	// 추가 회원 list를 볼수 있는 메서드
+	private static void processListCommand() {
+		MemberListPrinter listPrinter = 
+			ctx.getBean("listPrinter", MemberListPrinter.class);
+		listPrinter.printAll();
 	}
 
 	private static void processNewCommand(String[] arg) {
