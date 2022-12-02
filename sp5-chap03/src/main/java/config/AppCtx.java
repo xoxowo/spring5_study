@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import spring.ChangePasswordService;
 import spring.MemberDao;
 import spring.MemberRegisterService;
+import spring.MemberPrinter;
+import spring.MemberListPrinter;
+
 //@Configuration은 스프링 설정 클래스를 의미함
 @Configuration
 public class AppCtx {
@@ -26,4 +29,15 @@ public class AppCtx {
         pwdSvc.setMemberDao(memberDao());
         return pwdSvc;
     }
+    // 추가
+    @Bean
+    public MemberPrinter memberPrinter() {
+    	return new MemberPrinter();
+    }
+    
+    @Bean
+    public MemberListPrinter listPrinter() {
+    	return new MemberListPrinter(memberDao(), memberPrinter());
+    }
+    
 }
