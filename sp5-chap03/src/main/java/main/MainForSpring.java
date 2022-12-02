@@ -10,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import config.AppCtx;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
+import spring.MemberInfoPrinter;
 import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
 import spring.RegisterRequest;
@@ -42,6 +43,10 @@ public class MainForSpring {
 			else if (command.equals("list")) {
 				processListCommand();
 				continue;
+			} // DI 세터 방식 info 명령어 추가
+			else if (command.startsWith("info ")) {
+				processInfoCommand(command.split(" "));
+				continue;
 			}
 			printHelp();
 		}
@@ -51,8 +56,16 @@ public class MainForSpring {
 		MemberListPrinter listPrinter = 
 			ctx.getBean("listPrinter", MemberListPrinter.class);
 		listPrinter.printAll();
+	}// DI 세터 방식 info 명령어 추가
+	private static void processInfoCommand(String[] arg) {
+		if (arg.length !=2) {
+			printHelp();
+			return;
+		}
+		MemberInfoPrinter infoPrinter = ctx.getBean("infoPrinter", MemberInfoPrinter.class);
+		infoPrinter.printMemberInfo(arg[1]);
 	}
-
+	
 	private static void processNewCommand(String[] arg) {
 		if (arg.length != 5) {
 			printHelp();
