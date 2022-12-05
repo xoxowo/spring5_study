@@ -14,6 +14,7 @@ import spring.MemberInfoPrinter;
 import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
 import spring.RegisterRequest;
+import spring.VersionPrinter;
 import spring.WrongIdPasswordException;
 import spring.MemberListPrinter;
 
@@ -48,6 +49,10 @@ public class MainForSpring {
 				processInfoCommand(command.split(" "));
 				continue;
 			}
+			else if (command.equals("version")) {
+				processVersionCommand();
+				continue;
+			}
 			printHelp();
 		}
 	}
@@ -64,6 +69,11 @@ public class MainForSpring {
 		}
 		MemberInfoPrinter infoPrinter = ctx.getBean("infoPrinter", MemberInfoPrinter.class);
 		infoPrinter.printMemberInfo(arg[1]);
+	}
+	
+	private static void processVersionCommand() {
+		VersionPrinter versionPrinter = ctx.getBean("versionPrinter", VersionPrinter.class);
+		versionPrinter.print();
 	}
 	
 	private static void processNewCommand(String[] arg) {

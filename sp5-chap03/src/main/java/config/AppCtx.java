@@ -7,8 +7,10 @@ import spring.ChangePasswordService;
 import spring.MemberDao;
 import spring.MemberInfoPrinter;
 import spring.MemberRegisterService;
+import spring.VersionPrinter;
 import spring.MemberPrinter;
 import spring.MemberListPrinter;
+import spring.VersionPrinter;
 
 //@Configuration은 스프링 설정 클래스를 의미함
 @Configuration
@@ -47,6 +49,14 @@ public class AppCtx {
     	infoPrinter.setMemberDao(memberDao());
     	infoPrinter.setPrinter(memberPrinter());
     	return infoPrinter;
+    }
+    // 기본 버전 타입값 추가 기입
+    @Bean
+    public VersionPrinter versionPrinter() {
+    	VersionPrinter versionPrinter = new VersionPrinter();
+    	versionPrinter.setMajorVersion(5);
+    	versionPrinter.setMinorVersion(0);
+    	return versionPrinter;
     }
     
 }
