@@ -12,7 +12,7 @@ import spring.MemberPrinter;
 import spring.MemberListPrinter;
 import spring.VersionPrinter;
 
-// @Configuration은 스프링 설정 클래스를 의미함
+//@Configuration은 스프링 설정 클래스를 의미함
 @Configuration
 public class AppCtx {
     // @Bean 애노테이션은 해당 메서드가 생성한 객체를 스프링 빈이라고 설정한다.
@@ -29,7 +29,7 @@ public class AppCtx {
     @Bean
     public ChangePasswordService changePwdSvc() {
         ChangePasswordService pwdSvc = new ChangePasswordService();
-        pwdSvc.setMemberDao(memberDao());
+//        pwdSvc.setMemberDao(memberDao());
         return pwdSvc;
     }
     // 추가
