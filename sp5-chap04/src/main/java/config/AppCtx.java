@@ -46,8 +46,8 @@ public class AppCtx {
     @Bean
     public MemberInfoPrinter infoPrinter() {
     	MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-    	infoPrinter.setMemberDao(memberDao());
-    	infoPrinter.setPrinter(memberPrinter());
+//    	infoPrinter.setMemberDao(memberDao());
+//    	infoPrinter.setPrinter(memberPrinter());
     	return infoPrinter;
     }
     // 기본 버전 타입값 추가 기입
