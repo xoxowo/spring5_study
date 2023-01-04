@@ -1,5 +1,6 @@
 package config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,7 +36,18 @@ public class AppCtx {
     public MemberPrinter memberPrinter() {
     	return new MemberPrinter();
     }
-    
+
+    @Bean
+    @Qualifier("printer")
+    public MemberPrinter memberPrinter1() {
+    	return new MemberPrinter();
+    }
+
+    @Bean
+    public MemberPrinter memberPrinter2() {
+    	return new MemberPrinter();
+    }
+
     @Bean
     public MemberListPrinter listPrinter() {
     	return new MemberListPrinter();
