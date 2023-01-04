@@ -11,13 +11,13 @@ import spring.MemberRegisterService;
 import spring.VersionPrinter;
 import spring.MemberPrinter;
 import spring.MemberListPrinter;
-import spring.VersionPrinter;
+import spring.MemberSummaryPrinter;
 
 //@Configuration은 스프링 설정 클래스를 의미함
 @Configuration
 public class AppCtx {
     // @Bean 애노테이션은 해당 메서드가 생성한 객체를 스프링 빈이라고 설정한다.
-    @Bean // 이 빈은 각각의 빈 객체를 생성 
+    @Bean // 이 빈은 각각의 빈 객체를 생성 이 때 빈이름은 메서드 이름이며, 한정자 이기도하다
     public MemberDao memberDao() {
         return new MemberDao();
     }
@@ -38,14 +38,13 @@ public class AppCtx {
     }
 
     @Bean
-    @Qualifier("printer")
     public MemberPrinter memberPrinter1() {
     	return new MemberPrinter();
     }
-
+    // 상위/하위 타입 관계에 따른 자동 주입 예시 추가
     @Bean
-    public MemberPrinter memberPrinter2() {
-    	return new MemberPrinter();
+    public MemberSummaryPrinter memberPrinter2() {
+    	return new MemberSummaryPrinter();
     }
 
     @Bean
