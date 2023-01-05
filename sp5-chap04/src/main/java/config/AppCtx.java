@@ -38,11 +38,13 @@ public class AppCtx {
     }
 
     @Bean
+    @Qualifier("printer")
     public MemberPrinter memberPrinter1() {
     	return new MemberPrinter();
     }
     // 상위/하위 타입 관계에 따른 자동 주입 예시 추가
     @Bean
+    @Qualifier("summaryPrinter")
     public MemberSummaryPrinter memberPrinter2() {
     	return new MemberSummaryPrinter();
     }
