@@ -1,0 +1,117 @@
+package config;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan;
+
+import spring.ChangePasswordService;
+import spring.MemberDao;
+import spring.MemberInfoPrinter;
+import spring.MemberRegisterService;
+import spring.VersionPrinter;
+import spring.MemberPrinter;
+import spring.MemberListPrinter;
+import spring.MemberSummaryPrinter;
+
+//@Configuration은 스프링 설정 클래스를 의미함
+@Configuration
+@ComponentScan(basePackages = {"spring"})
+public class AppCtx {
+    // @Bean 애노테이션은 해당 메서드가 생성한 객체를 스프링 빈이라고 설정한다.
+    @Bean // 이 빈은 각각의 빈 객체를 생성 이 때 빈이름은 메서드 이름이며, 한정자 이기도하다
+    public MemberDao memberDao() {
+        return new MemberDao();
+    }
+
+    @Bean
+    public MemberRegisterService memberRegSvc() {
+        return new MemberRegisterService();
+    }
+
+    @Bean
+    public ChangePasswordService changePwdSvc() {
+        return new ChangePasswordService();
+    }
+
+    @Bean
+    public MemberPrinter memberPrinter() {
+    	return new MemberPrinter();
+    }
+
+    @Bean
+    @Qualifier("printer")
+    public MemberPrinter memberPrinter1() {
+    	return new MemberPrinter();
+    }
+    // 상위/하위 타입 관계에 따른 자동 주입 예시 추가
+    @Bean
+    @Qualifier("summaryPrinter")
+    public MemberSummaryPrinter memberPrinter2() {
+    	return new MemberSummaryPrinter();
+    }
+
+    @Bean
+    public MemberListPrinter listPrinter() {
+    	return new MemberListPrinter();
+    }
+
+    @Bean
+    public MemberInfoPrinter infoPrinter() {
+    	return new MemberInfoPrinter();
+    }
+
+    @Bean
+    public VersionPrinter versionPrinter() {
+    	VersionPrinter versionPrinter = new VersionPrinter();
+    	versionPrinter.setMajorVersion(5);
+    	versionPrinter.setMinorVersion(0);
+    	return versionPrinter;
+    }
+}
+
+// public class AppCtx {
+//     // @Bean 애노테이션은 해당 메서드가 생성한 객체를 스프링 빈이라고 설정한다.
+//     @Bean // 이 빈은 각각의 빈 객체를 생성 
+//     public MemberDao memberDao() {
+//         return new MemberDao();
+//     }
+
+//     @Bean
+//     public MemberRegisterService memberRegSvc() {
+//         return new MemberRegisterService(memberDao());
+//     }
+
+//     @Bean
+//     public ChangePasswordService changePwdSvc() {
+//         ChangePasswordService pwdSvc = new ChangePasswordService();
+// //        pwdSvc.setMemberDao(memberDao());
+//         return pwdSvc;
+//     }
+//     // 추가
+//     @Bean
+//     public MemberPrinter memberPrinter() {
+//     	return new MemberPrinter();
+//     }
+    
+//     @Bean
+//     public MemberListPrinter listPrinter() {
+//     	return new MemberListPrinter(memberDao(), memberPrinter());
+//     }
+//     // DI 세터 메서드 방식 추가 기입
+//     @Bean
+//     public MemberInfoPrinter infoPrinter() {
+//     	MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
+// //    	infoPrinter.setMemberDao(memberDao());
+// //    	infoPrinter.setPrinter(memberPrinter());
+//     	return infoPrinter;
+//     }
+//     // 기본 버전 타입값 추가 기입
+//     @Bean
+//     public VersionPrinter versionPrinter() {
+//     	VersionPrinter versionPrinter = new VersionPrinter();
+//     	versionPrinter.setMajorVersion(5);
+//     	versionPrinter.setMinorVersion(0);
+//     	return versionPrinter;
+//     }
+// }
