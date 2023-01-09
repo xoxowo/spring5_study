@@ -1,18 +1,18 @@
 package spring;
 
-import org.springframework.beans.facktory.DisposableBean;
-import org.springframework.beans.facktory.InitializingBean;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 
 
 public class Client implements DisposableBean, InitializingBean {
     private String host;
 
-    public void setHost(Stirng host) {
+    public void setHost(String host) {
         this.host = host;
     }
 
     @Override
-    public void afterPropertiseSet() throws Exception {
+    public void afterPropertiesSet() throws Exception {
         System.out.println("Client.afterPropertiesSet()실행");
     }
 
