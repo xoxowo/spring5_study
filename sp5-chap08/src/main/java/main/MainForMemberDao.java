@@ -22,7 +22,7 @@ public class MainForMemberDao {
         updateMember();
         insertMember();
 
-        ctc.close();
+        ctx.close();
     }
 
     public static void selectAll() {
@@ -31,26 +31,26 @@ public class MainForMemberDao {
         System.out.println("전체 데이터 : " + total);
         List<Member>members = memberDao.selectAll();
         for (Member m : members) {
-            System.out.println(m.getId()+":"+m.getEmail()+":"+m.getName());
+            System.out.println(m.getId()+"  :  "+m.getEmail()+"  :  "+m.getName());
         }
     }
 
     private static void updateMember() {
-		System.out.println("----- updateMember");
+		System.out.println("--------------updateMember");
 		Member member = memberDao.selectByEmail("madvirus@madvirus.net");
 		String oldPw = member.getPassword();
 		String newPw = Double.toHexString(Math.random());
 		member.changePassword(oldPw, newPw);
 
 		memberDao.update(member);
-		System.out.println("암호 변경: " + oldPw + " > " + newPw);
+		System.out.println("암호 변경: " + oldPw + " -> " + newPw);
 	}
 
 	private static DateTimeFormatter formatter = 
 			DateTimeFormatter.ofPattern("MMddHHmmss");
 
 	private static void insertMember() {
-		System.out.println("----- insertMember");
+		System.out.println("--------------insertMember");
 
 		String prefix = formatter.format(LocalDateTime.now());
 		Member member = new Member(prefix + "@test.com", 
