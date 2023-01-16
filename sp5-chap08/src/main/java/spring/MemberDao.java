@@ -75,7 +75,7 @@ public class MemberDao {
 			}
 		}, keyHolder);
 		Number keyValue = keyHolder.getKey();
-		member.setId(keyValue.longValue());	
+		member.setId(keyValue.longValue());	// longValue() 메서드로 키를 long 타입으로 변환
 	}
 
 	public void update(Member member) {
