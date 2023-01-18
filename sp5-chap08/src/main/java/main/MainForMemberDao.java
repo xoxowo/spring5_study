@@ -29,7 +29,7 @@ public class MainForMemberDao {
         System.out.println("--------------selectAll");
         int total = memberDao.count();
         System.out.println("전체 데이터 : " + total);
-        List<Member>members = memberDao.selectAll();
+        List<Member> members = memberDao.selectAll();
         for (Member m : members) {
             System.out.println(m.getId()+"  :  "+m.getEmail()+"  :  "+m.getName());
         }
@@ -37,7 +37,7 @@ public class MainForMemberDao {
 
     private static void updateMember() {
 		System.out.println("--------------updateMember");
-		Member member = memberDao.selectByEmail("madvirus@madvirus.net");
+		Member member = memberDao.selectByEmail("a@a.com");
 		String oldPw = member.getPassword();
 		String newPw = Double.toHexString(Math.random());
 		member.changePassword(oldPw, newPw);
@@ -58,6 +58,4 @@ public class MainForMemberDao {
 		memberDao.insert(member);
 		System.out.println(member.getId() + " 데이터 추가");
 	}
-
-
 }

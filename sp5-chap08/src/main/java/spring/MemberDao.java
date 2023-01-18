@@ -33,7 +33,7 @@ public class MemberDao {
 						rs.getString("EMAIL"),
 						rs.getString("PASSWORD"),
 						rs.getString("NAME"),
-						rs.getTimestamp("REGADATE").toLocalDateTime());
+						rs.getTimestamp("REGDATE").toLocalDateTime());
 					member.setId(rs.getLong("ID"));
 					return member;
 				}
