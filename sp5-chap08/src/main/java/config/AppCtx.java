@@ -34,10 +34,18 @@ public class AppCtx {
 	}
 	@Bean
 	public PlatformTransactionManager transactionManager() {
-		DataSourceTransactionManager tm = new DataSourceTransactionManager(null);
+		DataSourceTransactionManager tm = new DataSourceTransactionManager();
 		tm.setDataSource(dataSource());
 		return tm;
 	}
+
+	@Bean
+	public ChangePasswordService changePwdSvc() {
+		ChangePasswordService pwdSvc = new ChangePasswordService();
+		pwdSvc.setMemberDao(memberDao());
+		return pwdSvc;
+	}
+
 
 	@Bean
 	public MemberDao memberDao() {
