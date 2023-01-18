@@ -32,6 +32,12 @@ public class AppCtx {
 		ds.setTimeBetweenEvictionRunsMillis(10 * 1000);
 		return ds;
 	}
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		DataSourceTransactionManager tm = new DataSourceTransactionManager(null);
+		tm.setDataSource(dataSource());
+		return tm;
+	}
 
 	@Bean
 	public MemberDao memberDao() {
