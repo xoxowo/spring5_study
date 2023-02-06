@@ -39,11 +39,11 @@ public class RegisterController {
     
     @PostMapping("/register/step3")
     public String handleStep3(RegisterRequest regReq){
-    try {
-    	memberRegisterService.regist(regReq);
-    	return "register/step3";
-    }catch (DuplicateMemberException ex) {
-    return "register/step2";
-    }
+	    try {
+	    	memberRegisterService.regist(regReq);
+	    	return "register/step3";
+	    }catch (DuplicateMemberException ex) {
+	    return "register/step2";
+	    }
     }
 }

@@ -11,3 +11,5 @@
     <p><a href="<c:url value='/main'/>">[첫 화면 이동]</a></p>
 </body>
 </html>
+
+
