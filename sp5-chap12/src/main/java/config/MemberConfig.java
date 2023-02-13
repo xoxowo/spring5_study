@@ -30,7 +30,6 @@ public class MemberConfig {
 		return ds;
     }
 
-    //
     @Bean
     public PlatformTransactionManager transactionManager() {
 		DataSourceTransactionManager tm = new DataSourceTransactionManager();
