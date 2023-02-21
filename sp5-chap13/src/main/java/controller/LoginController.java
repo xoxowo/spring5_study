@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 import spring.AuthInfo;
 import spring.AuthService;
 import spring.WrongIdPasswordException;
@@ -26,7 +28,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public String submit(LoginCommand loginCommand, Errors errors) {
+    public String submit(LoginCommand loginCommand, Errors errors, HttpSession session) {
         new LoginCommandValidator().validate(loginCommand, errors);
         if (errors.hasErrors()) {
             return "login/loginForm";
@@ -35,6 +37,9 @@ public class LoginController {
             AuthInfo authInfo = authService.authenticate(
                     loginCommand.getEmail(),
                     loginCommand.getPassword());
+            
+            session.setAttribute("authInfo", authInfo);
+            
             return "login/loginSuccess";
         } catch (WrongIdPasswordException e) {
             errors.reject("idPasswordNotMatching");
