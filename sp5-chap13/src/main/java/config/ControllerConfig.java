@@ -5,10 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import controller.LogoutController;
+import controller.ChangePwdController;
 import controller.LoginController;
 import controller.RegisterController;
 import spring.MemberRegisterService;
 import spring.AuthService;
+import spring.ChangePasswordService;
 
 @Configuration
 public class ControllerConfig {
@@ -17,6 +19,8 @@ public class ControllerConfig {
     private MemberRegisterService memberRegSvc;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private ChangePasswordService changePasswordService;
 
     @Bean
     public RegisterController registerController(){
@@ -34,5 +38,12 @@ public class ControllerConfig {
     @Bean
     public LogoutController logoutController() {
     	return new LogoutController();
+    }   
+    
+    @Bean
+    public ChangePwdController changePwdController() {
+    	ChangePwdController controller=new ChangePwdController();
+    	controller.setChangePasswordService(changePasswordService);
+    	return controller;
     }   
 }
