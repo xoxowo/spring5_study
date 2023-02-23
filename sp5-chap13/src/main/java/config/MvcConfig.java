@@ -7,8 +7,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
+
+import interceptor.AuthCheakInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -29,12 +32,22 @@ public class MvcConfig implements WebMvcConfigurer {
 		registry.addViewController("/main").setViewName("main");
 	}
     
+    @Override
+    public void addInterceptors(InterceptorRegistry register) {
+    	register.addInterceptor(authCheckInterceptor()).addPathPatterns("/edit/**");
+    }
+    
     @Bean
     public MessageSource messageSource() {
     	ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
     	ms.setBasenames("message.label");
     	ms.setDefaultEncoding("UTF-8");
     	return ms;
+    }
+    
+    @Bean
+    public AuthCheakInterceptor authCheckInterceptor() {
+    	return new AuthCheakInterceptor();
     }
     
 }

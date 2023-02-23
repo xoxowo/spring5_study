@@ -45,7 +45,7 @@ public class ChangePwdController {
 					authInfo.getEmail(),
 					pwdCmd.getCurrentPassword(),
 					pwdCmd.getNewPassword());
-			return "edit/changedPwd";
+			return "edit/changedPwd"; 
 		} catch (WrongIdPasswordException e) {
 			errors.rejectValue("currentPassword", "notMatching");
 			return "edit/changePwdForm";
