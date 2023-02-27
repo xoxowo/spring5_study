@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import controller.LogoutController;
+import controller.MemberDetailController;
 import controller.MemberListController;
 import controller.ChangePwdController;
 import controller.LoginController;
@@ -53,6 +54,12 @@ public class ControllerConfig {
     @Bean
     public MemberListController memberListController() {
     	MemberListController controller = new MemberListController();
+    	controller.setMemberDao(memberDao);
+    	return controller;
+    }
+    @Bean
+    public MemberDetailController memberDetailController() {
+    	MemberDetailController controller = new MemberDetailController();
     	controller.setMemberDao(memberDao);
     	return controller;
     }

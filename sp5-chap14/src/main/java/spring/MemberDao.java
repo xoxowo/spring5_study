@@ -45,28 +45,14 @@ public class MemberDao {
 		return results.isEmpty() ? null : results.get(0);
 	}
 
-	public Member selectByEmail(String email) { // query()메서드를 이용해 쿼리 실행 
+	public Member selectByEmail(String email) {
 		List<Member> results = jdbcTemplate.query(
-			"select*from MEMBER where EMAIL = ?", memRowMapper);
+				"select * from MEMBER where EMAIL = ?",
+				memRowMapper, email);
 
-			/* *람다 표현식
-			List<Member> results = jdbcTemplate.query
-			"select*from MEMBER where EMAIL = ?",
-			(ResultSet rs, int rowNum) -> {
-				Member member = new Member (
-					rs.getString("EMAIL"),
-					rs.getString("PASSWORD"),
-					rs.getString("NAME"),
-					rs.getTimestamp("REGADATE").toLocalDateTime());	
-				member.setId(rs.getLong("ID"));
-				return member;
-			},
-			email);
-				*/
-		// query() 메서드는 실행한 결과가 존재하지 않으면 길이가 0 인 list를 리턴하므로 
-		// list가 비어있는지 여부로 결과를 확인 할 수 있다.
-		return results.isEmpty() ? null : results.get(0); 
+		return results.isEmpty() ? null : results.get(0);
 	}
+	
 	public void insert(final Member member) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
